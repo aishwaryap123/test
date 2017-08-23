@@ -1,0 +1,92 @@
+body
+{
+	background-color: rgb(0,0,0);
+}
+.clear
+{
+	clear: both;
+}
+#wrapper
+{
+	height: 480px;
+	width: 640px;
+	align-content: center;
+	padding: 0 auto;
+	margin: 0 auto;
+	background-color: rgb(217,221,221);
+}
+ul {
+	margin:0px;
+}
+#header
+{
+background-color: rgb(140,140,140);
+margin: 0px auto;
+}
+#menu
+{
+	background-color: rgb(50,50,50);
+	color:black;
+}
+#menu ul
+{
+	margin: 0px;
+	padding: 0px;
+	overflow: hidden;
+
+}
+
+#menu li
+{
+	float: left;
+    overflow: hidden;
+    padding: 5px 1px;
+    border-right: 2px solid rgb(255,255,255);
+
+}
+#clear {
+	clear:both;
+}
+#menu .menu-item a
+{   margin:0px;
+	padding: 15px 40px;
+	text-decoration: none;
+	padding: 3px;
+	color: rgb(255,255,255);
+	border: right;
+}
+#menu .menu-item a:hover
+{
+background-color: rgb(0,255,0);
+}
+#content{
+	float: left;
+	width: 70%;
+	background-color: rgb(255,255,255);
+}
+#sidebar
+{
+	float: right;
+	background-color: rgb(217,221,221);
+	width: 30%;
+}
+p{
+	margin: 10px;
+}
+h2{
+	margin-left: 10px;
+	margin-bottom: 0px;
+	color: #063D3D;
+}
+h3{
+	margin-left:10px;
+	margin-bottom: 0px;
+	color: #063D3D;
+}
+#footer-text
+{
+	text-align: right;
+	background-color: rgb(130,130,130);
+	margin-bottom: 0px auto;
+	padding: 25px;
+}
