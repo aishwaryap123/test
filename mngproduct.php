@@ -11,6 +11,7 @@
 					while($stmt->fetch()){
 						array_push($products,array('id'=>$r_id,'name'=>$r_name,'price'=>$r_price,'image'=>$r_image,'category'=>$r_cat));
 					}
+		
 		?>
 
 		
@@ -98,12 +99,12 @@
 								<td><?php echo $products[$key]['id'];?></td>
 								<td><?php echo $products[$key]['name'];?></td>
 								<td><?php echo $products[$key]['price']; ?></td>
-								<td><img src="../uploads/<?php echo $value['image'];  ?>"></td>
+								<td><img height="60px" width="60px" src="../uploads/<?php echo $value['image'];  ?>"></td>
 								<td><?php echo $value['category'];?></td>
 								<td>
 									<!-- Icons -->
-									 <a href="#" title="Edit"><img src="resources/images/icons/pencil.png" alt="Edit" /></a>
-									 <a href="#" title="Delete"><img src="resources/images/icons/cross.png" alt="Delete" /></a> 
+									 <a href="createproduct.php?e_id=<?php echo $value['id'] ?>" title="Edit"><img src="resources/images/icons/pencil.png" alt="Edit" /></a>
+									 <a href="dlt.php?d_id=<?php echo $value['id'] ?>" title="Delete"><img src="resources/images/icons/cross.png" alt="Delete" /></a> 
 									 <a href="#" title="Edit Meta"><img src="resources/images/icons/hammer_screwdriver.png" alt="Edit Meta" /></a>
 								</td>
 							</tr>
@@ -116,7 +117,7 @@
 					</table>
 				</div>
 			</div>
-
+				
 
 
 			

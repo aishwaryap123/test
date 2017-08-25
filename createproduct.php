@@ -11,6 +11,29 @@
 			$image="";
 
 		}
+		if(isset($_GET['e_id'])){
+			$edt_id=$_GET['e_id'];
+			$stmt=$conn->prepare("SELECT * FROM  PRODUCT WHERE id=?");
+			$stmt->bind_param("i",$edt_id);
+			$stmt->bind_result($id1,$name1,$price1,$image1,$category1);
+			$stmt->execute();
+			                    while($stmt->fetch()){
+										$i=$id1;
+										$n=$name1;
+										$p=$price1;
+										$img=$image1;
+									}
+		}
+		if(isset($_POST['edit'])){
+			$postId=$_POST['edit'];
+			$postName=$_POST['product-name'];
+			$postPrice=$_POST['product-price'];
+			$stmt = $conn->prepare("UPDATE PRODUCT SET name=?,price=? WHERE id=?");
+				$stmt->bind_param("ssi", $postName,$postPrice,$postId);
+					$stmt->execute();
+						$stmt->close();
+							//header("location:dlt.php");
+		}
 		if(isset($_POST['submit'])){
 		
 			$filename="";
@@ -57,12 +80,12 @@
 								
 								<p>
 									<label>Product Name</label>
-									<input class="text-input medium-input datepicker" type="text" id="product-name" name="product-name" /> <span class="input-notification error png_bg">Error message</span>
+									<input class="text-input medium-input datepicker" type="text" id="product-name" name="product-name" value="<?php if(isset($_GET['e_id'])){ echo $n; } ?>" /> 
 								</p>
 								
 								<p>
 									<label>Product Price</label>
-									<input class="text-input large-input" type="text" id="product-price" name="product-price" />
+									<input class="text-input large-input" type="text" id="product-price" name="product-price" value="<?php if(isset($_GET['e_id'])){ echo $p; } ?>" />
 								</p>
 								<p>
 								<label for="product_image">
@@ -71,7 +94,10 @@
 				
 								</label>
 								</p>
-								
+								<?php if(isset($_GET['e_id'])){?>
+							<input type="hidden" name="edit" value="<?php echo $edt_id; ?>"
+
+								<?php } ?>
 								
 								
 								<p>
@@ -90,7 +116,11 @@
 								</p>
 								
 								<p>
+								<?php if(!isset($edt_id)){  ?>
 									<input class="button" name="submit" type="submit" value="Submit" />
+									<?php } else{?>
+									<input class="button" name="update" type="submit" value="Update" />
+									<?php } ?>
 								</p>
 								
 							</fieldset>
@@ -99,7 +129,8 @@
 							
 						</form>
 						
-					</div> <!-- End #tab2 -->        
+					</div> <!-- End #tab2 -->   
+
 
 
 
