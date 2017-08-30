@@ -1,18 +1,40 @@
 <?php include('header.php'); ?>
+<?php	include ("../config.php"); ?>
+<?php	include ("../functions.php"); ?>
 <?php $page=basename($_SERVER['PHP_SELF']); ?>
 		
 		<?php include('sidebar.php'); ?>
 		<?php
-		$products=array();
-		include "config.php";
-	    	$stmt= $conn->prepare("SELECT * FROM PRODUCT ");
-				$stmt->execute();
-					$stmt->bind_result($r_id,$r_name,$r_price,$r_image,$r_cat);
-					while($stmt->fetch()){
-						array_push($products,array('id'=>$r_id,'name'=>$r_name,'price'=>$r_price,'image'=>$r_image,'category'=>$r_cat));
-					}
+		//$products=array();
+	
+		//insertion with pagitation....
 		
-		?>
+				
+					$total_record=countProduct();
+				
+				$rec_limit=3;
+				$product_per_page=ceil($total_record/$rec_limit);
+					if(isset($_GET['pg'])){
+						$pg=$_GET['pg'];
+				
+						for ($i=1; $i <= $product_per_page ; $i++) {
+
+       					if($pg==$i){
+
+           				 $offset= ($i-1)*$rec_limit;
+        			}
+   				 }
+
+					
+			}
+
+    
+ 			$products=showPagination($offset,$rec_limit);
+         				
+		
+				
+								
+			?>
 
 		
 		<div id="main-content"> <!-- Main Content Section with everything -->
@@ -60,7 +82,7 @@
 							   <th>Product Name</th>
 							   <th>Product Price</th>
 							   <th>Product Image</th>
-
+							   <th>Product Tag</th>
 							   <th>Product Category</th>
 							   <th>Action</th>
 							</tr>
@@ -80,13 +102,15 @@
 									</div>
 									
 									<div class="pagination">
-										<a href="#" title="First Page">&laquo; First</a><a href="#" title="Previous Page">&laquo; Previous</a>
-										<a href="#" class="number" title="1">1</a>
-										<a href="#" class="number" title="2">2</a>
-										<a href="#" class="number current" title="3">3</a>
-										<a href="#" class="number" title="4">4</a>
-										<a href="#" title="Next Page">Next &raquo;</a><a href="#" title="Last Page">Last &raquo;</a>
-									</div> <!-- End .pagination -->
+									
+					<?php for($i=1;$i<=$product_per_page;$i++) { ?>	
+						<a href="mngproduct.php?pg=<?php echo $i;?>" 
+							<?php if(isset($pg)&&$pg==$i): ?>
+					class='number current' title='1' <?php endif; ?>>
+						   <?php echo $i;?></a>"
+							
+							<?php } ?>
+								 <!-- End .pagination -->
 									<div class="clear"></div>
 								</td>
 							</tr>
@@ -100,10 +124,11 @@
 								<td><?php echo $products[$key]['name'];?></td>
 								<td><?php echo $products[$key]['price']; ?></td>
 								<td><img height="60px" width="60px" src="../uploads/<?php echo $value['image'];  ?>"></td>
+								<td><?php echo $value['tags']?></td>
 								<td><?php echo $value['category'];?></td>
 								<td>
 									<!-- Icons -->
-									 <a href="createproduct.php?e_id=<?php echo $value['id'] ?>" title="Edit"><img src="resources/images/icons/pencil.png" alt="Edit" /></a>
+									 <a href="createproduct.php?e_id=<?php echo $value['id'];?>" title="Edit"><img src="resources/images/icons/pencil.png" alt="Edit" /></a>
 									 <a href="dlt.php?d_id=<?php echo $value['id'] ?>" title="Delete"><img src="resources/images/icons/cross.png" alt="Delete" /></a> 
 									 <a href="#" title="Edit Meta"><img src="resources/images/icons/hammer_screwdriver.png" alt="Edit Meta" /></a>
 								</td>
